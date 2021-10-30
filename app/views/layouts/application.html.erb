@@ -11,17 +11,12 @@
   </head>
 
   <body>
-      <header class="header">
+    <header class="header">
       <div class="header__content">
         <div class="header__logo-container">
           <div class="header__logo-img-cont">
-          <a href="/">
-            <img
-              src="./assets/png/john-doe.png"
-              alt="Ram Maheshwari Logo Image"
-              class="header__logo-img"
-            />
-          </a>
+          <%= link_to("TOP","/") %>
+
           </div>
           <span class="header__logo-sub">John</span>
         </div>
@@ -41,6 +36,12 @@
             </li>
             <li class="header__link-wrapper">
               <%= link_to("New","/posts/new",class:'header__link') %>
+            </li>
+            <li class="header__link-wrapper">
+              <%= link_to("User","/users/index",class:'header__link') %>
+            </li>
+            <li class="header__link-wrapper">
+              <%= link_to("SignUp","/signup",class:'header__link') %>
             </li>
           </ul>
           <div class="header__main-ham-menu-cont">
@@ -80,6 +81,12 @@
         </div>
       </div>
     </header>
+    <!-- flash[:notice]に代入されたメッセージを表示してください -->
+    <% if flash[:notice]  %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
     <%= yield %>
     <footer class="main-footer">
       <div class="main-container">

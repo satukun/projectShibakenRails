@@ -7,14 +7,45 @@ class PostsController < ApplicationController
   end
 
   def new
+    @post = Post.new
   end
 
   def create
-    @post = Post.new(content:params[:content])
-    @post.save
-    redirect_to("/posts/index")
+    @post = Post.new(content: params[:content])
+    # 保存に成功した場合は投稿一覧ページ、保存に失敗した場合は新規投稿ページが表示されるようにif-else文を追加してください
+    if @post.save
+      flash[:notice] = "投稿を作成しました"
+      redirect_to("/posts/index")
+    else
+      render("posts/new")
+    end
   end
 
   def edit
+    @post = Post.find_by(id: params[:id])
   end
+
+  def update
+
+    @post = Post.find_by(id: params[:id])
+    @post.content = params[:content]
+    if @post.save
+      #保存できた場合
+      flash[:notice] = "投稿を編集しました"
+      redirect_to("/posts/index")
+
+    else
+      #保存できない場合
+      render("posts/edit")
+    end
+
+  end
+
+
+   def destroy
+    @post = Post.find_by(id: params[:id])
+    @post.destroy
+    flash[:notice] = "投稿を削除しました"
+    redirect_to("/posts/index")
+   end
 end
