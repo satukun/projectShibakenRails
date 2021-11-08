@@ -18,6 +18,13 @@
 
 // 指定したCSSを貼り付けてください
 
+.header__top {
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 /* reset ================================ */
 * {
   box-sizing: border-box;

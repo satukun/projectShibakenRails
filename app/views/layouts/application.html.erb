@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body>
@@ -15,34 +16,52 @@
       <div class="header__content">
         <div class="header__logo-container">
           <div class="header__logo-img-cont">
-          <%= link_to("TOP","/") %>
-
+            <%= link_to(image_tag("default_user.jpg"),"/",class:'header__top') %>
           </div>
-          <span class="header__logo-sub">John</span>
+          <%= link_to("ポートフォリオ","/",class:'header__logo-sub') %>
         </div>
         <div class="header__main">
           <ul class="header__links">
-            <li class="header__link-wrapper">
+
+            <%
+=begin%>
+ <li class="header__link-wrapper">
               <%= link_to("Home","/",class:'header__link') %>
             </li>
             <li class="header__link-wrapper">
-              <%= link_to("About","/about",class:'header__link') %>
-            </li>
-            <li class="header__link-wrapper">
-              <%= link_to("POST","/posts/index",class:'header__link') %>
-            </li>
-            <li class="header__link-wrapper">
               <%= link_to("Contact","/",class:'header__link') %>
-            </li>
-            <li class="header__link-wrapper">
-              <%= link_to("New","/posts/new",class:'header__link') %>
-            </li>
-            <li class="header__link-wrapper">
-              <%= link_to("User","/users/index",class:'header__link') %>
-            </li>
-            <li class="header__link-wrapper">
-              <%= link_to("SignUp","/signup",class:'header__link') %>
-            </li>
+            </li> 
+<%
+=end%>
+            <% if @current_user %>
+              <li>
+                <%= link_to(@current_user.name, "/users/#{@current_user.id}",class:'header__link') %>さん
+              </li>
+
+              <li class="header__link-wrapper">
+                <%= link_to("POST","/posts/index",class:'header__link') %>
+              </li>
+              <li class="header__link-wrapper">
+                <%= link_to("New","/posts/new",class:'header__link') %>
+              </li>
+              <li class="header__link-wrapper">
+                <%= link_to("User","/users/index",class:'header__link') %>
+              </li>
+              <li>
+                <!-- ログアウト用のリンクを追加してください -->
+                <%= link_to("Logout", "/logout",{method: "post",class:'header__link'}) %>
+              </li>
+            <% else %>
+              <li class="header__link-wrapper">
+                <%= link_to("About","/about",class:'header__link') %>
+              </li>
+              <li class="header__link-wrapper">
+                <%= link_to("SignUp","/signup",class:'header__link') %>
+              </li>
+              <li class="header__link-wrapper">
+                <%= link_to("Login","/login",class:'header__link') %>
+              </li>
+            <% end %>
           </ul>
           <div class="header__main-ham-menu-cont">
             <img
